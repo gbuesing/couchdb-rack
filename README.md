@@ -33,7 +33,7 @@ a request to:
     
 would route to '/' and render 'Home page'. A request to:
 
-   http://localhost:5984/mydb/_rack/foo
+    http://localhost:5984/mydb/_rack/foo
 
    
 would route to '/foo' and render 'Foo page', etc.
