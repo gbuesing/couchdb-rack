@@ -15,6 +15,8 @@ module Rack
       end
       
       def run
+        $stderr.reopen "/dev/null", "a"
+        
         while line = $stdin.readline
           req = JSON.parse line
           env = build_env(req)
