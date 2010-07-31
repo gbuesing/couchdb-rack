@@ -1,5 +1,4 @@
 require 'rack/builder'
-require 'rack/server'
 require 'rack/handler/couchdb'
 
 module CouchdbRack
@@ -19,7 +18,7 @@ module CouchdbRack
           abort "configuration #{@config} not found"
         end
 
-        app, options = Rack::Builder.parse_file(@config)
+        app, options = Rack::Builder.parse_file(@config, nil)
         app
       end
     end
