@@ -29,5 +29,3 @@ module CouchdbRack
     
   end
 end
-
-CouchdbRack::Server.start ARGV.first
