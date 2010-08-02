@@ -39,7 +39,7 @@ The JSON request object passed from CouchDB to the external process is available
 Example CouchDB local.ini setup:
 
     [external]
-    myapp = /path/to/ruby -rubygems /path/to/couchdb-rack/tools/couchdb-external-hook.rb  /path/to/myapp/config.ru
+    myapp = /path/to/ruby -rubygems -s /path/to/couchdb-rack/tools/couchdb-external-hook.rb -RACK_ENV=production /path/to/myapp/config.ru
 
     [httpd_db_handlers]
     _myapp = {couch_httpd_external, handle_external_req, <<"myapp">>}
