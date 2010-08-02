@@ -19,10 +19,6 @@ For example, given a basic Sinatra app:
       get '/foo' do
         'Foo page'
       end
-      
-      get '/usrctx' do
-        request.env['couchdb.request']['usrCtx'].inspect
-      end
     end
 
 
@@ -40,13 +36,19 @@ would route to '/foo' and render 'Foo page', etc.
 
 (The initial part of the path, /mydb/_rack , is stored as SCRIPT_NAME the Rack env hash.)
 
-The JSON request object passed by CouchDB to the external process is available in the Rack env hash under the 'couchdb.request' key. For more information on the CouchDB external request object, see the [CouchDB Wiki](http://wiki.apache.org/couchdb/ExternalProcesses#JSON_Requests)
+The JSON request object passed from CouchDB to the external process is available in the Rack env hash under the 'couchdb.request' key. For more information on the CouchDB external request object, see the [CouchDB Wiki](http://wiki.apache.org/couchdb/ExternalProcesses#JSON_Requests)
 
 Example CouchDB local.ini setup:
 
     [external]
-    rack = /path/to/ruby -rubygems -I/path/to/couchdb-rack/lib:/path/to/myapp /path/to/couchdb-rack/lib/couchdb-rack/server.rb  /path/to/myapp/config.ru
+    myapp = /path/to/ruby -rubygems /path/to/couchdb-rack/lib/couchdb-rack/server.rb  /path/to/myapp/config.ru
 
     [httpd_db_handlers]
-    _rack = {couch_httpd_external, handle_external_req, <<"rack">>}
+    _myapp = {couch_httpd_external, handle_external_req, <<"myapp">>}
     
+    
+You can point to the example app under /example to quickly see this in action.
+
+TODO:
+* Make this work with image files
+* Any way to reload app without restarting Couch server?
