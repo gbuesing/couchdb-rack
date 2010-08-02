@@ -1,8 +1,6 @@
 CouchDB-Rack
 ============
 
-Note: This is still a proof-of-concept.
-
 A Rack handler for CouchDB external processes.
 
 This allows you to mount a Rack app as a CouchDB external, and use CouchDB as the web server.
@@ -49,6 +47,18 @@ Example CouchDB local.ini setup:
     
 You can point to the example app under /example to quickly see this in action.
 
-TODO:
+
+CAVEATS
+-------
+
+The main limitation with using CouchDB's external line protocol is that each request blocks the process. So, in the example app, the /sleep action blocks for 10 seconds, and additional requests will queue up. If three requests come in to this action at the same time, the first request is served in 10 seconds, the second in 20, and the third in 30.
+
+Nothing we can do about this here on the Ruby side. The solution would be for CouchDB to implement a nonblocking external protocol (there's been some discussion about this on the CouchDB dev mailing list.)
+
+I wouldn't use an external for high-traffic applications, or IO-intensive applications. But should be fine enough to mount simple services.
+
+
+TODO
+----
 
 * Any way to reload app without restarting Couch server?
