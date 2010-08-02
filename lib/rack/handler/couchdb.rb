@@ -1,5 +1,5 @@
 require 'json'
-require 'rack/utils'
+require 'rack'
 require 'stringio'
 require 'base64'
 

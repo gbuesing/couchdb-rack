@@ -1,4 +1,4 @@
-require 'rack/builder'
+require 'rack'
 require 'rack/handler/couchdb'
 
 module CouchdbRack
