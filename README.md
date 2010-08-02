@@ -22,26 +22,26 @@ For example, given a basic Sinatra app:
     end
 
 
-a request to:
+When mounted as the external _myapp, a request to:
 
-    http://localhost:5984/mydb/_rack
+    http://localhost:5984/mydb/_myapp
 
     
 would route to '/' and render 'Home page'. A request to:
 
-    http://localhost:5984/mydb/_rack/foo
+    http://localhost:5984/mydb/_myapp/foo
 
    
 would route to '/foo' and render 'Foo page', etc.
 
-(The initial part of the path, /mydb/_rack , is stored as SCRIPT_NAME the Rack env hash.)
+(The initial part of the path, /mydb/_myapp , is stored as SCRIPT_NAME the Rack env hash.)
 
 The JSON request object passed from CouchDB to the external process is available in the Rack env hash under the 'couchdb.request' key. For more information on the CouchDB external request object, see the [CouchDB Wiki](http://wiki.apache.org/couchdb/ExternalProcesses#JSON_Requests)
 
 Example CouchDB local.ini setup:
 
     [external]
-    myapp = /path/to/ruby -rubygems /path/to/couchdb-rack/lib/couchdb-rack/server.rb  /path/to/myapp/config.ru
+    myapp = /path/to/ruby -rubygems /path/to/couchdb-rack/tools/couchdb-external-hook.rb  /path/to/myapp/config.ru
 
     [httpd_db_handlers]
     _myapp = {couch_httpd_external, handle_external_req, <<"myapp">>}
