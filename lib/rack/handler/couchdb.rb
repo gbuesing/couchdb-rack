@@ -1,6 +1,7 @@
 require 'json'
 require 'rack/utils'
 require 'stringio'
+require 'base64'
 
 module Rack
   module Handler
@@ -22,9 +23,17 @@ module Rack
           env = build_env(req)
           status, headers, body = @app.call(env)
           begin
-            outbody = ''
-            body.each {|s| outbody << s}
-            resp = {:code => status, :headers => headers, :body => outbody}
+            resp = {:code => status, :headers => headers}
+
+            if body.is_a?(::File)
+              encoded = Base64.encode64 body.read(body.stat.size)
+              resp[:base64] = encoded
+            else
+              outbody = ''
+              body.each {|s| outbody << s.to_s}
+              resp[:body] = outbody
+            end
+            
             $stdout.puts resp.to_json
             $stdout.flush
           ensure

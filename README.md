@@ -51,5 +51,4 @@ You can point to the example app under /example to quickly see this in action.
 
 TODO:
 
-* Make this work with image files
 * Any way to reload app without restarting Couch server?
