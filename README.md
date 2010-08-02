@@ -39,7 +39,7 @@ The JSON request object passed from CouchDB to the external process is available
 Example CouchDB local.ini setup:
 
     [external]
-    myapp = /path/to/ruby -rubygems -s /path/to/couchdb-rack/tools/couchdb-external-hook.rb -RACK_ENV=production /path/to/myapp/config.ru
+    myapp = /path/to/ruby -rubygems -s /path/to/couchdb-rack/tools/couchdb-external-hook.rb -RACK_ENV=development /path/to/myapp/config.ru
 
     [httpd_db_handlers]
     _myapp = {couch_httpd_external, handle_external_req, <<"myapp">>}
@@ -57,8 +57,3 @@ Nothing we can do about this here on the Ruby side. The solution would be for Co
 
 I wouldn't use an external for high-traffic applications, or IO-intensive applications. But should be fine enough to mount simple services.
 
-
-TODO
-----
-
-* Any way to reload app without restarting Couch server?
