@@ -15,6 +15,17 @@ class App < Sinatra::Base
     request.env['couchdb.request']['userCtx'].to_json
   end
   
+  # CouchDB doesn't give us an easy way to reload an external, so we'll expose an admin-only url to kill the process,
+  # which will cause CouchDB to reload it. Saves us from having to restart the CouchDB server just to reload the external.
+  # Could easily be triggered by a deploy script to reload the app on deploy.
+  get '/reload' do
+    if request.env['couchdb.request']['userCtx']['roles'].include? '_admin'
+      Process.kill 'SIGTERM', 0
+    else
+      pass
+    end
+  end
+  
   # Only one Rack process per external, so calls to this action will block the process for 10 seconds!
   # This limitation is inherent in CouchDB's external line protocol; there's nothing we can do here in Ruby to work around this.
   #
