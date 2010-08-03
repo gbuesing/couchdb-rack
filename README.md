@@ -48,7 +48,13 @@ Example CouchDB local.ini setup:
 You can point to the config.ru under /example to quickly see this in action.
 
 
-CAVEATS
+Reloading the app
+-----------------
+
+Check the example app for a url-accessible way to reload the app without restarting the CouchDB server.
+
+
+Caveats
 -------
 
 The main limitation with using CouchDB's external line protocol is that each request blocks the process. So, in the example app, the /sleep action blocks for 10 seconds, and additional requests will queue up. If three requests come in to this action at the same time, the first request is served in 10 seconds, the second in 20, and the third in 30.
