@@ -57,3 +57,5 @@ Nothing we can do about this here on the Ruby side. The solution would be for Co
 
 I wouldn't use an external for high-traffic applications, or IO-intensive applications. But should be fine enough to mount simple services.
 
+Another CouchDB external limitation: no streaming of response bodies. Could be an issue if you need to return extremely large responses.
+
