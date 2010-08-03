@@ -6,6 +6,7 @@ require 'base64'
 module Rack
   module Handler
     class Couchdb
+      TEXT_CONTENT_TYPE = /^text\/.?/
       
       def self.run(app, options = nil)
         new(app).run
@@ -25,7 +26,7 @@ module Rack
           begin
             resp = {:code => status, :headers => headers}
 
-            if body.is_a?(::File)
+            if body.is_a?(::File) && headers['Content-Type'] !~ TEXT_CONTENT_TYPE
               encoded = Base64.encode64 body.read(body.stat.size)
               resp[:base64] = encoded
             else
