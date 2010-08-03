@@ -45,7 +45,7 @@ Example CouchDB local.ini setup:
     _myapp = {couch_httpd_external, handle_external_req, <<"myapp">>}
     
     
-You can point to the example app under /example to quickly see this in action.
+You can point to the config.ru under /example to quickly see this in action.
 
 
 CAVEATS
