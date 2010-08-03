@@ -6,7 +6,7 @@ require 'base64'
 module Rack
   module Handler
     class Couchdb
-      TEXT_CONTENT_TYPE = /^text\/.?/
+      TEXT_CONTENT_TYPE = /text\/.?|application\/json|application\/javascript/
       
       def self.run(app, options = nil)
         new(app).run
