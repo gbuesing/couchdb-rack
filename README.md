@@ -9,7 +9,7 @@ For example, given a basic Sinatra app:
 
     require 'sinatra/base'
     
-    class App < Sinatra::Base
+    class MyApp < Sinatra::Base
       get '/' do
         'Home page'
       end

@@ -26,13 +26,18 @@ module Rack
           begin
             resp = {:code => status, :headers => headers}
 
-            if body.is_a?(::File) && headers['Content-Type'] !~ TEXT_CONTENT_TYPE
-              encoded = Base64.encode64 body.read(body.stat.size)
-              resp[:base64] = encoded
+            if body.is_a?(::File)
+              # can't stream response, so we have to read entire file into memory
+              outbody = body.read(body.stat.size)
             else
               outbody = ''
               body.each {|s| outbody << s.to_s}
+            end
+            
+            if headers['Content-Type'] =~ TEXT_CONTENT_TYPE
               resp[:body] = outbody
+            else
+              resp[:base64] = Base64.encode64 outbody
             end
             
             $stdout.puts resp.to_json
