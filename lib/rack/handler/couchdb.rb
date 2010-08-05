@@ -28,7 +28,7 @@ module Rack
 
             if body.is_a?(::File)
               # can't stream response, so we have to read entire file into memory
-              outbody = body.read(body.stat.size)
+              outbody = body.read
             else
               outbody = ''
               body.each {|s| outbody << s.to_s}
