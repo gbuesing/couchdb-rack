@@ -26,13 +26,9 @@ module Rack
           begin
             resp = {:code => status, :headers => headers}
 
-            if body.is_a?(::File)
-              # can't stream response, so we have to read entire file into memory
-              outbody = body.read
-            else
-              outbody = ''
-              body.each {|s| outbody << s.to_s}
-            end
+            # can't stream response, so we have to read entire response body into memory
+            outbody = ''
+            body.each {|s| outbody << s.to_s}
             
             if headers['Content-Type'] =~ TEXT_CONTENT_TYPE
               resp[:body] = outbody
